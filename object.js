@@ -39,7 +39,6 @@ Object.assignGettersAsEnumerable = (object, ...sources) => {
  * @param {string} property
  * @returns {string}
  */
-
 /**
  * @param {Object} object
  * @param {Object} source
