@@ -51,3 +51,6 @@ Date.standard = (ms, abbreviate = true) => {
   }
   return `${total.toLocaleString("en", { useGrouping: false, minimumFractionDigits: 1 })}${unit}`;
 };
+
+
+export default Date;

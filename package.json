@@ -1,0 +1,9 @@
+{
+  "name": "@kxirk/utils",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Cody Morton",
+  "repository": "github:kxirk/utils.js",
+  "type": "module",
+  "main": "index.js"
+}

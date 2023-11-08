@@ -62,3 +62,6 @@ Object.assignGettersSettersAs = (object, source, propertyName = (property) => pr
 
   return object;
 };
+
+
+export default Object;

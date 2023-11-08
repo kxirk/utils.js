@@ -99,3 +99,6 @@ Array.prototype.permute = function () {
 
   return this;
 };
+
+
+export default Array;

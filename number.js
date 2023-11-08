@@ -34,3 +34,6 @@ Number.prototype.round = function (digits = 0) {
   const round = Math.round((this + Number.EPSILON) * exponent);
   return (round / exponent);
 };
+
+
+export default Number;
