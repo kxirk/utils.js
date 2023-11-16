@@ -25,6 +25,7 @@ Object.assignGettersAsEnumerable = (object, ...sources) => {
 
     for (const [property, descriptor] of Object.entries(prototypeDescriptors)) {
       if (descriptor.get instanceof Function) {
+        descriptor.configurable = true;
         descriptor.enumerable = true;
         Object.defineProperty(object, property, descriptor);
       }
@@ -51,10 +52,10 @@ Object.assignGettersSettersAs = (object, source, propertyName = (property) => pr
   for (const [property, descriptor] of Object.entries(prototypeDescriptors)) {
     const copyDescriptor = {};
     if (descriptor.get instanceof Function) {
-      Object.assign(copyDescriptor, { get: () => source[property], enumerable: true });
+      Object.assign(copyDescriptor, { get: () => source[property], configurable: true, enumerable: true });
     }
     if (descriptor.set instanceof Function) {
-      Object.assign(copyDescriptor, { set: (value) => { source[property] = value; } });
+      Object.assign(copyDescriptor, { set: (value) => { source[property] = value; }, configurable: true });
     }
 
     Object.defineProperty(object, propertyName(property), copyDescriptor);
