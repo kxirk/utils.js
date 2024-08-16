@@ -1,21 +1,21 @@
 /**
- * @param {...number} args
+ * @param {...number} numbers
  * @returns {number}
  */
-Math.sum = (...args) => args.reduce((sum, i) => (sum + i), 0);
+Math.average = (...numbers) => (Math.sum(...numbers) / numbers.length);
 
 /**
- * @param {...number} args
- * @returns {number}
- */
-Math.average = (...args) => (Math.sum(...args) / args.length);
-
-/**
- * @param {number} n
+ * @param {number} number
  * @param {number} [base]
  * @returns {number}
  */
-Math.log = (n, base = Math.E) => (Math.log10(n) / Math.log10(base));
+Math.log = (number, base = Math.E) => (Math.log10(number) / Math.log10(base));
+
+/**
+ * @param {...number} numbers
+ * @returns {number}
+ */
+Math.sum = (...numbers) => numbers.reduce((sum, i) => (sum + i), 0);
 
 
 export default Math;
