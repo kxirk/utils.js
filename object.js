@@ -151,7 +151,7 @@ Object.defineProperty(Object.prototype, "values", {
 });
 
 Object.defineProperty(Object.prototype, Symbol.iterator, {
-  /** @type {Iterator.<*>} */
+  /** @type {Iterator<*>} */
   value () {
     return Object.entries(this)[Symbol.iterator]();
   },

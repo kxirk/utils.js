@@ -1,4 +1,4 @@
-/** @enum {Map.<string, number>} */
+/** @enum {Map<string, number>} */
 const units = new Map([
   ["milliseconds", 1],
   ["seconds", 1000],
