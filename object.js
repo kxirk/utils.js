@@ -51,9 +51,12 @@ Object.assignGettersSettersAs = (object, source, propertyName = (property) => pr
 /**
  * @param {Object} object
  * @param {Class} [Stop]
+ * @param {boolean} [includeStop]
  * @returns {string[]}
  */
-Object.getAllPropertyNames = (object, Stop = Object) => {
+Object.getAllPropertyNames = (object, Stop = Object, includeStop = false) => {
+  if (!includeStop && (object === Stop.prototype)) return [];
+
   const prototype = Object.getPrototypeOf(object);
   const inherited = ((object instanceof Stop) ? Object.getAllPropertyNames(prototype, Stop) : []);
 
