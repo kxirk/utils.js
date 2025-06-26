@@ -2,7 +2,11 @@
  * @param {...number} numbers
  * @returns {number}
  */
-Math.average = (...numbers) => (Math.sum(...numbers) / numbers.length);
+Math.average = (...numbers) => {
+  if (numbers.length === 0) return 0;
+
+  return (Math.sum(...numbers) / numbers.length);
+};
 
 /**
  * @param {number} number

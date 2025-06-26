@@ -1,3 +1,6 @@
+/* eslint-disable no-extend-native */ // library
+
+
 Object.defineProperty(String.prototype, "insert", {
   /**
    * @param {string} term

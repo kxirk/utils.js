@@ -1,7 +1,8 @@
 /**
  * @param {Object} object
  * @param {...Class} Sources
- * @returns {Object}
+ * @modifies {object}
+ * @returns {Object} object
  */
 Object.assignGettersAsEnumerable = (object, ...Sources) => {
   for (const Source of Sources.reverse()) {
@@ -28,7 +29,8 @@ Object.assignGettersAsEnumerable = (object, ...Sources) => {
  * @param {Object} object
  * @param {Object} source
  * @param {Function} [propertyName]
- * @returns {Object}
+ * @modifies {object}
+ * @returns {Object} object
  */
 Object.assignGettersSettersAs = (object, source, propertyName = (property) => property) => {
   const prototypeDescriptors = Object.getOwnPropertyDescriptors(source.constructor.prototype);
@@ -61,9 +63,8 @@ Object.getAllPropertyNames = (object, Stop = Object, includeStop = false) => {
   const inherited = ((object instanceof Stop) ? Object.getAllPropertyNames(prototype, Stop) : []);
 
   const all = Object.getOwnPropertyNames(object).concat(inherited);
-  const set = new Set(all);
 
-  return Array.from(set);
+  return Array.from(Object.keys(all));
 };
 
 /**
@@ -82,84 +83,6 @@ Object.getPrototypeChain = (Base, Stop = null, includeStop = false) => {
 
   return chain;
 };
-
-
-Object.defineProperty(Object.prototype, "size", {
-  /** @type {number} */
-  get () { return Object.keys(this).length; },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "clear", {
-  value () {
-    for (const property of Object.getOwnPropertyNames(this)) {
-      delete this[property];
-    }
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "delete", {
-  /**
-   * @param {string} key
-   * @returns {boolean}
-   */
-  value (key) {
-    const present = (key in this);
-
-    delete this[key];
-
-    const deleted = !(key in this);
-
-    if (present && deleted) return true;
-    return false;
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "entries", {
-  /** @typedef {[string, *]} Entry */
-  /** @returns {Entry[]}  */
-  value () {
-    return Object.entries(this);
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "has", {
-  /**
-   * @param {string} key
-   * @returns {boolean}
-   */
-  value (key) {
-    return (key in this);
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "keys", {
-  /** @returns {string[]} */
-  value () {
-    return Object.keys(this);
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, "values", {
-  /** @returns {*[]} */
-  value () {
-    return Object.values(this);
-  },
-  enumerable: false
-});
-
-Object.defineProperty(Object.prototype, Symbol.iterator, {
-  /** @type {Iterator<*>} */
-  value () {
-    return Object.entries(this)[Symbol.iterator]();
-  },
-  enumerable: false
-});
 
 
 export default Object;

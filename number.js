@@ -1,3 +1,6 @@
+/* eslint-disable no-extend-native */ // library
+
+
 Object.defineProperty(Number.prototype, "between", {
   /**
    * @param {number} [min]
@@ -5,7 +8,7 @@ Object.defineProperty(Number.prototype, "between", {
    * @returns {boolean}
    */
   value (min = -Infinity, max = Infinity) {
-    return (this >= min && this <= max);
+    return ((this >= min) && (this <= max));
   },
   enumerable: false
 });
@@ -31,7 +34,7 @@ Object.defineProperty(Number.prototype, "map", {
    * @returns {number}
    */
   value (fromMin, fromMax, toMin = 0, toMax = 1) {
-    return (this - fromMin) * ((toMax - toMin) / (fromMax - fromMin)) + toMin;
+    return ((this - fromMin) * ((toMax - toMin) / (fromMax - fromMin)) + toMin);
   },
   enumerable: false
 });
@@ -50,10 +53,18 @@ Object.defineProperty(Number.prototype, "normalize", {
 Object.defineProperty(Number.prototype, "round", {
   /**
    * @param {number} [step]
+   * @param {boolean} [gaussian]
    * @returns {number}
    */
-  value (step = 1) {
-    const roundStep = Math.round(this / step);
+  value (step = 1, gaussian = false) {
+    const midpoint = (step / 2);
+    const midway = (((this - midpoint) % step) === 0);
+
+    let roundStep = Math.round(this / step);
+    if (gaussian && midway) {
+      const bias = (((roundStep % 2) === 0) ? midpoint : -midpoint);
+      roundStep = ((this + bias) / step);
+    }
     const resultStep = (roundStep * step);
 
     let exponent = 0;

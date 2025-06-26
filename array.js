@@ -1,11 +1,14 @@
+/* eslint-disable no-extend-native */ // library
+
+
 Object.defineProperty(Array.prototype, "first", {
-  /** @type {*} */
+  /** @template T @type {T} */
   get () { return this[0]; },
   enumerable: false
 });
 
 Object.defineProperty(Array.prototype, "last", {
-  /** @type {*} */
+  /** @template T @type {T} */
   get () { return this[this.length - 1]; },
   enumerable: false
 });
@@ -18,18 +21,23 @@ Object.defineProperty(Array.prototype, "empty", {
 
 
 Object.defineProperty(Array.prototype, "clear", {
-  /** @returns {*[]} */
+  /**
+   * @modifies {this}
+   * @returns {undefined}
+   */
   value () {
-    return this.splice(0, this.length);
+    this.splice(0, this.length);
   },
   enumerable: false
 });
 
 Object.defineProperty(Array.prototype, "insert", {
   /**
-   * @param {*} element
+   * @template T
+   * @param {T} element
    * @param {number} [index]
-   * @returns {*[]}
+   * @modifies {this}
+   * @returns {this}
    */
   value (element, index = this.length) {
     this.splice(index, 0, element);
@@ -40,7 +48,10 @@ Object.defineProperty(Array.prototype, "insert", {
 });
 
 Object.defineProperty(Array.prototype, "permute", {
-  /** @returns {*[]}  */
+  /**
+   * @modifies {this}
+   * @returns {this}
+   */
   value () {
     let start = this.length - 2;
     while (start >= 0) {
@@ -66,8 +77,10 @@ Object.defineProperty(Array.prototype, "permute", {
 
 Object.defineProperty(Array.prototype, "remove", {
   /**
+   * @template T
    * @param {number} index
-   * @returns {*}
+   * @modifies {this}
+   * @returns {T}
    */
   value (index) {
     return this.splice(index, 1)[0];
@@ -79,7 +92,8 @@ Object.defineProperty(Array.prototype, "reverse", {
   /**
    * @param {number} [start]
    * @param {number} [end]
-   * @returns {*[]}
+   * @modifies {this}
+   * @returns {this}
    */
   value (start = 0, end = (this.length - 1)) {
     for (let i = start, j = end; i < j; i++, j--) this.swap(i, j);
@@ -93,7 +107,8 @@ Object.defineProperty(Array.prototype, "swap", {
   /**
    * @param {number} i
    * @param {number} j
-   * @returns {*[]}
+   * @modifies {this}
+   * @returns {this}
    */
   value (i, j) {
     [this[i], this[j]] = [this[j], this[i]];
@@ -105,8 +120,10 @@ Object.defineProperty(Array.prototype, "swap", {
 
 Object.defineProperty(Array.prototype, "write", {
   /**
-   * @param {...*} elements
-   * @returns {*[]}
+   * @template T
+   * @param {...T} elements
+   * @modifies {this}
+   * @returns {this}
    */
   value (...elements) {
     this.splice(0, this.length, ...elements);
